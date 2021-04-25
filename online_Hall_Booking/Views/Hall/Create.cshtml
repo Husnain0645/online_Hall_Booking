@@ -1,0 +1,66 @@
+﻿@model online_Hall_Booking.Models.Hall
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h4 class="display-4">Create</h4>
+</div>
+<hr />
+<div class="card-body register-card-body">
+    <form enctype="multipart/form-data" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="decription" class="control-label"></label>
+            <input asp-for="decription" class="form-control" />
+            <span asp-validation-for="decription" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="createdAt" class="control-label"></label>
+            <input asp-for="createdAt" class="form-control" />
+            <span asp-validation-for="createdAt" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="coverIphoto" class="control-label"></label>
+            <input type="file" asp-for="coverIphoto" accept="img/*" class="form-control" />
+            <span asp-validation-for="coverIphoto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Logo" class="control-label"></label>
+            <input type="file" asp-for="Logo" accept="img/*" class="form-control" />
+            <span asp-validation-for="Logo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label name="city" class="control-label">City</label>
+            <input name="city" class="form-control" />
+            <label name="state" class="control-label">State</label>
+            <input name="state" class="form-control" />
+            <label name="country" class="control-label">Country</label>
+            <input name="country" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="Index"  class="btn btn-warning">Back to List</a>
+</div>
+
+
