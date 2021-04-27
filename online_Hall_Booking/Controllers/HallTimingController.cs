@@ -23,7 +23,7 @@ namespace online_Hall_Booking.Controllers
         }
 
         // GET: HallTiming
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var login = _userManager.GetUserId(HttpContext.User);
 
