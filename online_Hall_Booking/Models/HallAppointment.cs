@@ -20,7 +20,11 @@ namespace online_Hall_Booking.Models
 
         public string Remarks { get; set; }
 
-        public DateTime Date { get; set; }
+        public string AdminRemarks { get; set; }
+
+        public String Date { get; set; }
+
+        public byte Status { get; set; }
 
         public int HId { get; set; }
         [ForeignKey("HId")]

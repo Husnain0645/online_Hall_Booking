@@ -96,6 +96,8 @@ namespace online_Hall_Booking.Controllers
                 if (ModelState.IsValid)
                 {
                     hallAppointment.HId = (int)TempData["hid"];
+                    var dateTime = DateTime.Now;
+                    hallAppointment.Date = dateTime.ToShortDateString();
                     _context.Add(hallAppointment);
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
@@ -109,6 +111,87 @@ namespace online_Hall_Booking.Controllers
           
             return View(hallAppointment);
         }
+
+
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var hallAppointment = await _context.HallAppointment.FindAsync(id);
+            if (hallAppointment == null)
+            {
+                return NotFound();
+            }
+            
+            return View(hallAppointment);
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,  HallAppointment hallAppointment)
+        {
+            if (id != hallAppointment.HapId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    hallAppointment.HId = (int)TempData["hid"];
+                    _context.Update(hallAppointment);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    
+                        throw;
+                    
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            
+            return View(hallAppointment);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var hall = await _context.HallAppointment
+                .Include(h => h.Hall)
+                .FirstOrDefaultAsync(m => m.HapId == id);
+            if (hall == null)
+            {
+                return NotFound();
+            }
+
+            return View(hall);
+        }
+
+        // POST: Halls/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var hallAppointments = await _context.HallAppointment.FindAsync(id);
+            _context.HallAppointment.Remove(hallAppointments);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Requests));
+        }
+
+
+
+
 
         public IActionResult Requests()
         {

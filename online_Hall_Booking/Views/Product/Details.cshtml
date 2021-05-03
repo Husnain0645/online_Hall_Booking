@@ -6,8 +6,6 @@
 
 }
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,9 +29,6 @@
                         <div class="preview-pic tab-content">
                             <div class="tab-pane active" id="pic-1"><img src="~/hall/cover/@Model.CoverImageUrl" /></div>
                             <div class="tab-pane" id="pic-2"><img src="~/hall/Logo/@Model.logoFile" /></div>
-                            @*<div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-                            <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-                            <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>*@
                         </div>
                         <ul class="preview-thumbnail nav nav-tabs">
                             <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="~/hall/cover/@Model.CoverImageUrl" /></a></li>
@@ -55,9 +50,9 @@
                             <span class="review-no">41 reviews</span>
                         </div>
                         <p class="product-description">@Model.halldecription</p>
-                        <h4 class="price">Packages </h4>
+                        @*<h4 class="price">Packages </h4>
                         <p class="vote"><strong>@Model.packageName</strong> @Model.packagedecription <strong>(@Model.Packacgetype)</strong></p>
-                        <p class="vote"><strong>Persons :</strong> @Model.personCount | <strong> Charges </strong><span>@Model.charges PKR</span></p>
+                        <p class="vote"><strong>Persons :</strong> @Model.personCount | <strong> Charges </strong><span>@Model.charges PKR</span></p>*@
                         <h4 class="price">Facilities:</h4>
 
                         <P class="size" data-toggle="tooltip">@Model.facilityName</P>
