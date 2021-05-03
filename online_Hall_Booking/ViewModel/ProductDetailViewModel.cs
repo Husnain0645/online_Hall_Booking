@@ -1,4 +1,5 @@
-﻿using System;
+﻿using online_Hall_Booking.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace online_Hall_Booking.ViewModel
         public string Address { get; set; }
         public string CoverImageUrl { get; set; }
         public string logoFile { get; set; }
+        public List<Hall> halllist { get; set; }
 
 
 

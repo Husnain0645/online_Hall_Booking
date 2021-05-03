@@ -44,13 +44,16 @@ namespace online_Hall_Booking.Controllers
                 return NotFound();
             }
             TempData["hid"] = hall.hId;
+            var listofhalls = _context.Halls
+                    .Where(h => h.CId == hall.CId).Take(4).ToList();
             ProductDetailViewModel vm = new ProductDetailViewModel();
-
+                 
                 vm.hallName = hall.Name;
                 vm.halldecription = hall.decription;
                 vm.Address = hall.Address;
                 vm.CoverImageUrl = hall.CoverImageUrl;
                 vm.logoFile = hall.logoFile;
+            vm.halllist = listofhalls;
                 //packages
                 if (packages != null)
                     {
@@ -200,6 +203,19 @@ namespace online_Hall_Booking.Controllers
                 .Include(h=>h.Hall)
                 .ToList();
             return View(reqList);
+        }
+
+        public IActionResult RelatedProducts()
+        {
+            var hall = _context.Halls
+               .FirstOrDefault(m => m.hId == (int)TempData["hid"]);
+            if (hall != null)
+            {
+                var reqlist = _context.Halls
+                    .Where(h => h.CId==hall.CId).Take(4).ToList();
+                return View(reqlist);
+            }
+            return View();
         }
 
 
