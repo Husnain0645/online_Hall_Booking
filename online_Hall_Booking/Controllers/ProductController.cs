@@ -38,7 +38,8 @@ namespace online_Hall_Booking.Controllers
               .FirstOrDefault(m => m.hId == id);
             var facility = _context.FAcilities.FirstOrDefault(f => f.hallId == id);
             var timmimg = _context.timings.FirstOrDefault(f => f.hallId == id);
-            var packages= _context.packages.FirstOrDefault(f => f.hallId == id);
+            var perheadpackages= _context.packages.Where(h=> h.hallId==id && h.type=="perhead").ToList();
+            var lumsumpackages = _context.packages.Where(h => h.hallId == id && h.type == "lumsum").ToList();
             if (hall == null)
             {
                 return NotFound();
@@ -54,15 +55,9 @@ namespace online_Hall_Booking.Controllers
                 vm.CoverImageUrl = hall.CoverImageUrl;
                 vm.logoFile = hall.logoFile;
             vm.halllist = listofhalls;
-                //packages
-                if (packages != null)
-                    {
-                vm.packageName = packages.Name;
-                vm.packagedecription = packages.decription;
-                vm.personCount = packages.personCount;
-                vm.Packacgetype = packages.type;
-                vm.charges = packages.charges;
-            }
+            //packages
+            vm.perheadList = perheadpackages;
+            vm.Lumsumlist = lumsumpackages;
 
             //facilities
             if (facility != null)

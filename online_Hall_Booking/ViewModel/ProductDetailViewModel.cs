@@ -21,11 +21,9 @@ namespace online_Hall_Booking.ViewModel
 
 
         //packages
-        public string packageName { get; set; }
-        public string packagedecription { get; set; }
-        public double personCount { get; set; }
-        public double charges { get; set; }
-        public string Packacgetype { get; set; }
+        public List<HallPackages> perheadList { get; set; }
+        public List<HallPackages> Lumsumlist { get; set; }
+     
 
         //facilities
 

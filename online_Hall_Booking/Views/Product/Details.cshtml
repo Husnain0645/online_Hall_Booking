@@ -72,15 +72,66 @@
 
 
     <section class="text-center">
-       <h4><strong>Related Products</strong></h4>
-        <hr/>
-        <div class="card-group text-muted " style="margin-bottom:40px; margin-left:20px; ">
+        <h4 class="text-dark"><strong>Per Head </strong></h4>
+        <hr />
+
+        <div class="card-group  " style=" margin-left:40px; ">
+
+            @foreach (var item in Model.perheadList)
+            {
+                <div class="col-4">
+                    <div class="card" style="width: 20rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong> @item.Name</strong></h5>
+                            <p class="card-text">@item.decription</p>
+                            <strong>Per Peron : </strong>
+                            <span class="price">@item.charges RS</span>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </section>
+    <section class="text-center">
+        <h4><strong>Lum Sum </strong></h4>
+        <hr />
+
+        <div class="card-group  " style=" margin-left:40px; ">
+
+            @foreach (var item in Model.Lumsumlist)
+            {
+                <div class="col-4">
+                    <div class="card " style="max-width: 20rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong> @item.Name</strong> </h5>
+                            <p class="card-text">@item.decription</p>
+                            <span>Persons : @item.personCount</span>
+                            <br/>
+                            <span class="price">charges : @item.charges RS</span>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    </section>
+
+    <section class="text-center">
+        <h4><strong>Related Products</strong></h4>
+        <hr />
+
+        <div class="card-group  " style="margin-bottom:40px; margin-left:20px; ">
 
 
             @foreach (var item in Model.halllist)
             {
-                <div class="col-3">
-                    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;  ">
+                <div class="col-4">
+                    <div class="card " style="max-width: 18rem;">
                         <img class="card-img-top   " src="~/hall/cover/@item.CoverImageUrl" style="height:300px" alt="Card image cap">
 
                         <div class="card-body">
@@ -93,7 +144,7 @@
             }
 
         </div>
-        </section>
+    </section>
 
 </body>
 
