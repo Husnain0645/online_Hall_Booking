@@ -24,7 +24,11 @@ namespace online_Hall_Booking.Models
 
         public String Date { get; set; }
 
-        public byte Status { get; set; }
+        public sbyte Status { get; set; }
+
+        public int? PId { get; set; }
+        [ForeignKey("PId")]
+        public HallPackages Package { get; set; }
 
         public int HId { get; set; }
         [ForeignKey("HId")]

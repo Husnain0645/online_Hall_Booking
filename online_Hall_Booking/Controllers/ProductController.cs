@@ -78,15 +78,31 @@ namespace online_Hall_Booking.Controllers
             return View(vm);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
+            var pakage = _context.packages.FirstOrDefault(p => p.pId == id);
+            if(pakage.type=="perhead")
+            {
+
+                    var perheadId= pakage.pId;
+                TempData["pkgId"] = perheadId;
+
+
+            }
+
+            if (pakage.type == "lumsum")
+            {
+                var lumSumId = pakage.pId;
+                TempData["pkgId"] = lumSumId;
+
+            }
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("HapId,Name,phone,Email,Remarks,Date,HId")] HallAppointment hallAppointment)
+        public IActionResult Create(string status, [Bind("HapId,Name,phone,Email,Remarks,Date,HId")] HallAppointment hallAppointment)
         {
 
             try
@@ -94,6 +110,20 @@ namespace online_Hall_Booking.Controllers
                 if (ModelState.IsValid)
                 {
                     hallAppointment.HId = (int)TempData["hid"];
+                    hallAppointment.PId = (int)TempData["pkgId"];
+                    if(status == "Complete")
+                    {
+                        hallAppointment.Status = 1;
+                    }
+                    else if (status == "Pending")
+                    {
+                        hallAppointment.Status = 0;
+                    }
+                    else if (status == "Decline")
+                    {
+                        hallAppointment.Status = 0;
+                    }
+
                     var dateTime = DateTime.Now;
                     hallAppointment.Date = dateTime.ToShortDateString();
                     _context.Add(hallAppointment);
@@ -124,7 +154,10 @@ namespace online_Hall_Booking.Controllers
             {
                 return NotFound();
             }
-            
+            TempData["appPkgId"] = hallAppointment.PId;
+            TempData["appHallId"] = hallAppointment.HId;
+
+
             return View(hallAppointment);
         }
 
@@ -140,11 +173,33 @@ namespace online_Hall_Booking.Controllers
 
             if (ModelState.IsValid)
             {
+                
+
                 try
                 {
-                    hallAppointment.HId = (int)TempData["hid"];
+                    hallAppointment.HId =(int) TempData["appHallId"];
+                    hallAppointment.PId = (int)TempData["appPkgId"];
                     _context.Update(hallAppointment);
                     await _context.SaveChangesAsync();
+
+                    var currentpackage = _context.packages.FirstOrDefault(h => h.pId == (int)TempData["appPkgId"]);
+
+
+                    hallOrder order = new hallOrder();
+                    if (hallAppointment.Status == 1)
+                    {
+                        order.hallId = currentpackage.hallId;
+                        order.PId = currentpackage.pId;
+                        order.personCount = currentpackage.personCount;
+                        order.totalAmount = currentpackage.charges;
+                        order.receivedAmount = 0.00;
+                        order.type = currentpackage.type;
+                        var dateTime = DateTime.Now;
+                        order.createdAt = dateTime.ToShortDateString();
+                        _context.Orders.Add(order);
+                        await _context.SaveChangesAsync();
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -152,7 +207,7 @@ namespace online_Hall_Booking.Controllers
                         throw;
                     
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Requests));
             }
             
             return View(hallAppointment);
@@ -195,7 +250,8 @@ namespace online_Hall_Booking.Controllers
         {
            
             var reqList = _context.HallAppointment
-                .Include(h=>h.Hall)
+                .Include(h=>h.Hall )
+                 .Include(h => h.Package)
                 .ToList();
             return View(reqList);
         }

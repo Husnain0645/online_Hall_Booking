@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using online_Hall_Booking.Data;
 
 namespace online_Hall_Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210505085321_hallappointmentv3")]
+    partial class hallappointmentv3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,14 +341,14 @@ namespace online_Hall_Booking.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PId")
+                    b.Property<int>("PId")
                         .HasColumnType("int");
 
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("Status")
-                        .HasColumnType("smallint");
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("phone")
                         .IsRequired()
@@ -559,11 +561,11 @@ namespace online_Hall_Booking.Migrations
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
-                    b.Property<int?>("PId")
+                    b.Property<int?>("PackagesIdpId")
                         .HasColumnType("int");
 
-                    b.Property<string>("createdAt")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("createdAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("createdBy")
                         .HasColumnType("nvarchar(max)");
@@ -592,7 +594,7 @@ namespace online_Hall_Booking.Migrations
 
                     b.HasKey("ordId");
 
-                    b.HasIndex("PId");
+                    b.HasIndex("PackagesIdpId");
 
                     b.HasIndex("hallId");
 
@@ -691,9 +693,11 @@ namespace online_Hall_Booking.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("online_Hall_Booking.Models.HallPackages", "Package")
+                    b.HasOne("online_Hall_Booking.Models.HallPackages", "HallPackages")
                         .WithMany()
-                        .HasForeignKey("PId");
+                        .HasForeignKey("PId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("online_Hall_Booking.Models.HallFacilities", b =>
@@ -745,9 +749,9 @@ namespace online_Hall_Booking.Migrations
 
             modelBuilder.Entity("online_Hall_Booking.Models.hallOrder", b =>
                 {
-                    b.HasOne("online_Hall_Booking.Models.HallPackages", "Package")
+                    b.HasOne("online_Hall_Booking.Models.HallPackages", "PackagesId")
                         .WithMany()
-                        .HasForeignKey("PId");
+                        .HasForeignKey("PackagesIdpId");
 
                     b.HasOne("online_Hall_Booking.Models.Hall", "Hall")
                         .WithMany()

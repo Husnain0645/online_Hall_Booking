@@ -12,8 +12,8 @@ namespace online_Hall_Booking.Models
 
         [Key]
         public int ordId { get; set; }
-        [Required]
-        public DateTime createdAt { get; set; }
+       
+        public string createdAt { get; set; }
         public string createdBy { get; set; }
         public string updatedBy { get; set; }
         [Required]
@@ -27,12 +27,14 @@ namespace online_Hall_Booking.Models
         public string type { get; set; }
 
         public short status { get; set; }
-        
-        public HallPackages PackagesId { get; set; }
+
+        public int? PId { get; set; }
+        [ForeignKey("PId")]
+        public HallPackages Package { get; set; }
 
 
         [ForeignKey("hallId")]
         public int hallId { get; set; }
-        public virtual Hall Hall { get; set; }
+        public  Hall Hall { get; set; }
     }
 }

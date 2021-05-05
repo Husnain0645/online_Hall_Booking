@@ -60,10 +60,7 @@
                         <h4 class="price">Slot Availability </h4>
                         <p class="vote"><strong>Day :</strong> @Model.day | <strong> Time</strong>(@Model.SlotTime)</p>
 
-                        <div class="action">
-                            <a asp-action="Create" class="add-to-cart btn btn-default">Request Booking</a>
-
-                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -80,13 +77,17 @@
             @foreach (var item in Model.perheadList)
             {
                 <div class="col-4">
-                    <div class="card" style="width: 20rem;">
+                    <div class="card h-100" style="width: 20rem;">
                         <div class="card-body">
                             <h5 class="card-title"><strong> @item.Name</strong></h5>
                             <p class="card-text">@item.decription</p>
                             <strong>Per Peron : </strong>
                             <span class="price">@item.charges RS</span>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                          
+                            <div class="action">
+                                <a asp-action="Create" asp-route-id="@item.pId" class="add-to-cart btn btn-default">Request Booking</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,14 +105,19 @@
             @foreach (var item in Model.Lumsumlist)
             {
                 <div class="col-4">
-                    <div class="card " style="max-width: 20rem;">
+                    <div class="card h-100" style="max-width: 20rem;">
                         <div class="card-body">
                             <h5 class="card-title"><strong> @item.Name</strong> </h5>
                             <p class="card-text">@item.decription</p>
                             <span>Persons : @item.personCount</span>
-                            <br/>
+                            <br />
                             <span class="price">charges : @item.charges RS</span>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+                            
+                            <div class="action">
+                                <a asp-action="Create" asp-route-id="@item.pId"  class="add-to-cart btn btn-default">Request Booking</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
