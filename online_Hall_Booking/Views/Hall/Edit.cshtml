@@ -5,74 +5,69 @@
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
 
-<h4>Hall</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="hId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="decription" class="control-label"></label>
-                <input asp-for="decription" class="form-control" />
-                <span asp-validation-for="decription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="createdAt" class="control-label"></label>
-                <input asp-for="createdAt" class="form-control" />
-                <span asp-validation-for="createdAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="createdBy" class="control-label"></label>
-                <input asp-for="createdBy" class="form-control" />
-                <span asp-validation-for="createdBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="updatedBy" class="control-label"></label>
-                <input asp-for="updatedBy" class="form-control" />
-                <span asp-validation-for="updatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label name="file1" class="control-label"></label>
-                <input type="file" name="file1" accept="image/*" class="form-control" />
 
-            </div>
-            <div class="form-group">
-                <label name="file2" class="control-label"></label>
-                <input type="file" name="file2" accept="image/*" class="form-control" />
-            </div>
-
-            @*<div class="form-group">
-            <label asp-for="cId" class="control-label"></label>
-            <input asp-for="cId" class="form-control" />
-            <span asp-validation-for="cId" class="text-danger"></span>
-        </div>*@
-            <div class="form-group">
-                <label asp-for="CId" class="control-label"> Halls</label>
-                <select asp-for="CId" class="form-control" asp-items="ViewBag.CId"></select>
-
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="text-center">
+    <h4>Hall</h4>
     </div>
-</div>
+    <hr />
+    <div class="d-flex justify-content-center">
+        <div class="form-row">
+            <form enctype="multipart/form-data" asp-action="Create" class="align-content-center">
+                >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="decription" class="control-label"></label>
+                    <input asp-for="decription" class="form-control" />
+                    <span asp-validation-for="decription" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label name="file1" class="control-label">Cover</label>
+                        <input type="file" name="file1" accept="image/*" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label name="file2" class="control-label">Logo</label>
+                        <br />
+                        <input type="file" name="file2" accept="image/*" />
+                    </div>
+                </div>
 
-<div>
-    <a asp-action="Index" class="btn btn-warning">Back to List</a>
-</div>
+
+                @*<div class="form-group">
+                        <label asp-for="cId" class="control-label"></label>
+                        <input asp-for="cId" class="form-control" />
+                        <span asp-validation-for="cId" class="text-danger"></span>
+                    </div>*@
+                <div class="form-group">
+                    <label asp-for="CId" class="control-label"> Halls</label>
+                    <select asp-for="CId" class="form-control" asp-items="ViewBag.CId"></select>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <a asp-action="Index" class="btn btn-warning">Back to Hall</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 
 

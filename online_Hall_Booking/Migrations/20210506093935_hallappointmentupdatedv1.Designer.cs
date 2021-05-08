@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using online_Hall_Booking.Data;
 
 namespace online_Hall_Booking.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210506093935_hallappointmentupdatedv1")]
+    partial class hallappointmentupdatedv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,14 +362,8 @@ namespace online_Hall_Booking.Migrations
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
 
-                    b.Property<string>("createdBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("updatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HapId");
@@ -505,9 +501,6 @@ namespace online_Hall_Booking.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrdId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("createdAt")
                         .HasColumnType("datetime2");
 
@@ -518,11 +511,14 @@ namespace online_Hall_Booking.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("hallId")
+                    b.Property<int?>("hId1")
                         .HasColumnType("int");
 
-                    b.Property<int>("refId")
+                    b.Property<int?>("ordId1")
                         .HasColumnType("int");
+
+                    b.Property<string>("refId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<short>("status")
                         .HasColumnType("smallint");
@@ -536,9 +532,9 @@ namespace online_Hall_Booking.Migrations
 
                     b.HasKey("treId");
 
-                    b.HasIndex("OrdId");
+                    b.HasIndex("hId1");
 
-                    b.HasIndex("hallId");
+                    b.HasIndex("ordId1");
 
                     b.ToTable("transactions");
                 });
@@ -743,15 +739,13 @@ namespace online_Hall_Booking.Migrations
 
             modelBuilder.Entity("online_Hall_Booking.Models.HallTransaction", b =>
                 {
-                    b.HasOne("online_Hall_Booking.Models.hallOrder", "Order")
+                    b.HasOne("online_Hall_Booking.Models.Hall", "hId")
                         .WithMany()
-                        .HasForeignKey("OrdId");
+                        .HasForeignKey("hId1");
 
-                    b.HasOne("online_Hall_Booking.Models.Hall", "Hall")
+                    b.HasOne("online_Hall_Booking.Models.hallOrder", "ordId")
                         .WithMany()
-                        .HasForeignKey("hallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ordId1");
                 });
 
             modelBuilder.Entity("online_Hall_Booking.Models.State", b =>

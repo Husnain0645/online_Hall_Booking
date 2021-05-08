@@ -9,20 +9,67 @@
 
 <h4>HallAppointment</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<script>
+    $(function () {
+
+        $("#persons,#charges").keyup(function (e) {
+
+            var q = $("#persons").val();
+            var p = $("#charges").val();
+            var result = "";
+            var remaing = "";
+
+            if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                result = parseFloat(q) * parseFloat(p);
+            }
+            $("#totalPrice").val(result);
+
+          
+
+        });
+
+    });
+    //
+    $(function () {
+
+        $("#adAmount").keyup(function (e) {
+
+            var q = $("#totalPrice").val();
+            var p = $("#adAmount").val();
+            var result = "";
+            var remaing = "";
+
+            if (q !== "" && p !== "" && $.isNumeric(q) && $.isNumeric(p)) {
+                result = parseFloat(q) - parseFloat(p);
+            }
+            $("#RemainingPrice").val(result);
+
+        });
+
+    });
+
+  
+
+
+
+</script>
+<div class="d-flex justify-content-center">
+    <div class="form-row">
+        
+        <form asp-action="Edit" class="align-content-center">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="HapId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input readonly asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="phone" class="control-label"></label>
-                <input readonly asp-for="phone" class="form-control" />
-                <span asp-validation-for="phone" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input readonly asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="phone" class="control-label"></label>
+                    <input readonly asp-for="phone" class="form-control" />
+                    <span asp-validation-for="phone" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -39,33 +86,74 @@
                 <input asp-for="AdminRemarks" class="form-control" />
                 <span asp-validation-for="AdminRemarks" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input readonly asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="cars">Status</label>
 
-                <select name="status" class="form-control">
-                    <option value="1">Complete</option>
-                    <option value="0">Pending</option>
-                    <option value="-1">Decline</option>
-                    
-                </select>
-
-
-                <span asp-validation-for="Status" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Persons" class="control-label">Persons</label>
+                    <input asp-for="Persons" id="persons" class="form-control" />
+                    <span asp-validation-for="Persons" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="perheadCharges" class="control-label">Person Charges</label>
+                    <input asp-for="perheadCharges" id="charges" class="form-control" />
+                    <span asp-validation-for="perheadCharges" class="text-danger"></span>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="AdvancedAmount" class="control-label"></label>
+                    <input asp-for="AdvancedAmount" id="adAmount" class="form-control" />
+                    <span asp-validation-for="AdvancedAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="RemaingAmount" class="control-label"></label>
+                    <input asp-for="RemaingAmount" id="RemainingPrice" class="form-control" />
+                    <span asp-validation-for="RemaingAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="TotalAmount" class="control-label"></label>
+                    <input asp-for="TotalAmount" id="totalPrice" class="form-control" />
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
             </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input readonly asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cars">Status</label>
+
+                    <select asp-for="Status" class="form-control">
+                        <option value="1">Complete</option>
+                        <option value="0">Pending</option>
+                        <option value="-1">Decline</option>
+
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Add Order" class="btn btn-primary" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Requests" class="btn btn-danger">Back To Appointments</a>
+                </div>
+            </div>
+
+           
         </form>
+        </div>
+
     </div>
-</div>
+
 
 <div>
-    <a asp-action="Requests">Back to List</a>
+ 
 </div>
+
 

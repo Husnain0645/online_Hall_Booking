@@ -26,6 +26,18 @@ namespace online_Hall_Booking.Models
 
         public sbyte Status { get; set; }
 
+        [NotMapped]
+        public double perheadCharges { get; set; }
+        public double Persons { get; set; }
+        public double AdvancedAmount { get; set; }
+        public double RemaingAmount { get; set; }
+        public double TotalAmount { get; set; }
+
+        public string createdBy { get; set; }
+
+        public string updatedBy { get; set; }
+
+
         public int? PId { get; set; }
         [ForeignKey("PId")]
         public HallPackages Package { get; set; }

@@ -50,6 +50,14 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.totalAmount)
+                <br />
+
+                @{ 
+                    var reamount = item.totalAmount - item.receivedAmount-item.Discount;
+                    item.remainingAmount = reamount;
+                }
+               <h5 class="text-red">@Html.DisplayFor(modelItem => item.remainingAmount)</h5>
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.receivedAmount)
@@ -70,9 +78,8 @@
                 @Html.DisplayFor(modelitem => item.Package.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ordId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ordId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ordId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ordId" class="btn btn-primary">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.ordId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

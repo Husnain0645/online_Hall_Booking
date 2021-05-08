@@ -27,9 +27,14 @@ namespace online_Hall_Booking.Models
         public DateTime  Date { get; set; }
         public short status { get; set; }
 
-        public hallOrder ordId { get; set; }
-        public Hall hId { get; set; }
-        public string refId { get; set; }
+        public int? OrdId { get; set; }
+        [ForeignKey("OrdId")]
+        public hallOrder Order { get; set; }
+
+        [ForeignKey("hallId")]
+        public int hallId { get; set; }
+        public Hall Hall { get; set; }
+        public int refId { get; set; }
 
 
     }

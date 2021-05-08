@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using online_Hall_Booking.Data;
 using online_Hall_Booking.Models;
@@ -13,13 +14,15 @@ namespace online_Hall_Booking.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
-       
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProductController(ApplicationDbContext context)
+
+        public ProductController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this._userManager = userManager;
 
-            
+
         }
         public IActionResult Index()
         {
@@ -102,7 +105,7 @@ namespace online_Hall_Booking.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(string status, [Bind("HapId,Name,phone,Email,Remarks,Date,HId")] HallAppointment hallAppointment)
+        public IActionResult Create(string status, [Bind("HapId,Name,phone,Email,creadtedBy,updatedBy,Remarks,Date,HId")] HallAppointment hallAppointment)
         {
 
             try
@@ -111,7 +114,8 @@ namespace online_Hall_Booking.Controllers
                 {
                     hallAppointment.HId = (int)TempData["hid"];
                     hallAppointment.PId = (int)TempData["pkgId"];
-                    if(status == "Complete")
+                    var currentpackage = _context.packages.FirstOrDefault(h => h.pId == (int)TempData["pkgId"]);
+                    if (status == "Complete")
                     {
                         hallAppointment.Status = 1;
                     }
@@ -126,6 +130,11 @@ namespace online_Hall_Booking.Controllers
 
                     var dateTime = DateTime.Now;
                     hallAppointment.Date = dateTime.ToShortDateString();
+
+                    hallAppointment.perheadCharges = currentpackage.charges;
+                    hallAppointment.createdBy = _userManager.GetUserId(HttpContext.User);
+                    hallAppointment.updatedBy = _userManager.GetUserId(HttpContext.User);
+
                     _context.Add(hallAppointment);
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
@@ -177,12 +186,16 @@ namespace online_Hall_Booking.Controllers
 
                 try
                 {
+                    var currentpackage = _context.packages.FirstOrDefault(h => h.pId == (int)TempData["appPkgId"]);
                     hallAppointment.HId =(int) TempData["appHallId"];
                     hallAppointment.PId = (int)TempData["appPkgId"];
+                    hallAppointment.createdBy = _userManager.GetUserId(HttpContext.User);
+                    hallAppointment.updatedBy = _userManager.GetUserId(HttpContext.User);
+
                     _context.Update(hallAppointment);
                     await _context.SaveChangesAsync();
 
-                    var currentpackage = _context.packages.FirstOrDefault(h => h.pId == (int)TempData["appPkgId"]);
+                    
 
 
                     hallOrder order = new hallOrder();
@@ -190,9 +203,12 @@ namespace online_Hall_Booking.Controllers
                     {
                         order.hallId = currentpackage.hallId;
                         order.PId = currentpackage.pId;
-                        order.personCount = currentpackage.personCount;
-                        order.totalAmount = currentpackage.charges;
-                        order.receivedAmount = 0.00;
+                        order.personCount = hallAppointment.Persons;
+                        order.totalAmount = hallAppointment.TotalAmount;
+                        order.receivedAmount = hallAppointment.AdvancedAmount;
+                        order.remainingAmount = order.totalAmount - hallAppointment.AdvancedAmount;
+                        order.createdBy = hallAppointment.createdBy;
+                        order.updatedBy = hallAppointment.updatedBy;
                         order.type = currentpackage.type;
                         var dateTime = DateTime.Now;
                         order.createdAt = dateTime.ToShortDateString();
@@ -248,11 +264,12 @@ namespace online_Hall_Booking.Controllers
 
         public IActionResult Requests()
         {
-           
+
+            var login = _userManager.GetUserId(HttpContext.User);
             var reqList = _context.HallAppointment
                 .Include(h=>h.Hall )
                  .Include(h => h.Package)
-                .ToList();
+               .Where(s => s.createdBy == login).ToList();
             return View(reqList);
         }
 

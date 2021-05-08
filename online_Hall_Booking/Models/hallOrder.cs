@@ -25,7 +25,8 @@ namespace online_Hall_Booking.Models
         public double Discount { get; set; }
         [Required]
         public string type { get; set; }
-
+        [NotMapped]
+        public double remainingAmount { get; set; }
         public short status { get; set; }
 
         public int? PId { get; set; }

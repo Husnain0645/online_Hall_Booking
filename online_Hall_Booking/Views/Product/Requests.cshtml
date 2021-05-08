@@ -36,6 +36,18 @@
                 @Html.DisplayNameFor(model => model.AdminRemarks)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Persons)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdvancedAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RemaingAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
@@ -70,8 +82,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AdminRemarks)
             </td>
+
             <td>
-                @if (item.Status >= 1)
+                @Html.DisplayFor(modelItem => item.Persons)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdvancedAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemaingAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @if (item.Status == 1)
                 {
                     <h6>Complete</h6>
                 }
@@ -88,12 +113,16 @@
 
 
             </td>
+           
+               
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.HapId" class="btn btn-primary">Response</a>
                 <a asp-action="Delete" asp-route-id="@item.HapId" class="btn btn-danger">Remove</a>
 
 
             </td>
+            
         </tr>
         }
     </tbody>
