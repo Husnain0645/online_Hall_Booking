@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using online_Hall_Booking.Data;
@@ -14,14 +15,15 @@ namespace online_Hall_Booking.Controllers
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly INotyfService _notyfService;
         private readonly UserManager<IdentityUser> _userManager;
 
 
-        public ProductController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public ProductController(ApplicationDbContext context, UserManager<IdentityUser> userManager, INotyfService notyfService)
         {
             _context = context;
             this._userManager = userManager;
-
+            _notyfService = notyfService;
 
         }
         public IActionResult Index()
@@ -137,6 +139,7 @@ namespace online_Hall_Booking.Controllers
 
                     _context.Add(hallAppointment);
                     _context.SaveChanges();
+                    _notyfService.Success("Request Sent Succesfully");
                     return RedirectToAction(nameof(Index));
                 }
             }

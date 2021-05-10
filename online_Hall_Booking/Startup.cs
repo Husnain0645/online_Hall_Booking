@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,7 @@ namespace online_Hall_Booking
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -49,23 +52,14 @@ namespace online_Hall_Booking
             services.ConfigureApplicationCookie(options => {
                 options.LoginPath = "/Identity/Account/Login";
             });
- ////           services.AddIdentity<IdentityUser, IdentityRole>(opt =>
- ////           {
- ////               opt.Password.RequiredLength = 7;
- ////               opt.Password.RequireDigit = false;
- ////               opt.Password.RequireUppercase = false;
+            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
- ////               opt.User.RequireUniqueEmail = true;
- ////           })
- ////.AddEntityFrameworkStores<ApplicationDbContext>()
- ////.AddDefaultTokenProviders();
+    }
 
-
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseNotyf();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
