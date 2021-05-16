@@ -1,0 +1,26 @@
+﻿@model IEnumerable<online_Hall_Booking.Models.Hall>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/CustomerLTE/_Layout_Customer.cshtml";
+}
+
+<div class="card-group  " style="margin-bottom:40px; margin-left:20px; ">
+
+
+    @foreach (var item in Model)
+    {
+        <div class="col-3">
+            <div class="card h-100 text-white bg-dark mb-3" style="max-width: 18rem;">
+                <img class="card-img-top   " src="~/hall/cover/@item.CoverImageUrl" style="height:300px" alt="Card image cap">
+
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.decription</p>
+                    <a asp-action="Details" asp-route-id="@item.hId" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

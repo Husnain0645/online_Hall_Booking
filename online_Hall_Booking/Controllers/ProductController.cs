@@ -288,8 +288,19 @@ namespace online_Hall_Booking.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public IActionResult Search(string searchString)
+        {
+            var hallList = _context.Halls.ToList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                hallList = hallList.Where(s => s.Name.Contains(searchString)
+                                       || s.Address.Contains(searchString)).ToList();
+            }
 
 
+            return View(hallList);
+        }
 
 
     }
