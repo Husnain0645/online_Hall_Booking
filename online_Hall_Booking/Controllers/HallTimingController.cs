@@ -118,6 +118,8 @@ namespace online_Hall_Booking.Controllers
             {
                 try
                 {
+                    hallTiming.createdBy = _userManager.GetUserId(HttpContext.User);
+                    hallTiming.updatedBy = _userManager.GetUserId(HttpContext.User);
                     _context.Update(hallTiming);
                     await _context.SaveChangesAsync();
                 }

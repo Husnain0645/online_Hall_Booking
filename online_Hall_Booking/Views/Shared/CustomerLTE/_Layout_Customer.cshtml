@@ -28,16 +28,31 @@
                         <a class="nav-link" asp-action="Index" asp-controller="Product">Home <span class="sr-only">(current)</span></a>
                     </li>
                     @*<li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>*@
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>*@
                 </ul>
                 <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Product" method="get">
-                    <input class="form-control mr-sm-2" type="search" name="SearchString"  placeholder="Search" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
+
+                <ul class="">
+                    <li class="nav-item active ">
+                        <a asp-area="Identity" asp-page="/Account/Register" class="nav-link text-white" style="margin-top:10px">Register</a>
+                    </li>
+
+                </ul>
+
+                <ul class="">
+                    <li class="nav-item active ">
+                        <a asp-area="Identity" asp-page="/Account/Login" class="nav-link text-white" style="margin-top:10px">Login</a>
+                    </li>
+
+                </ul>
+               
             </div>
         </nav>
     </div>

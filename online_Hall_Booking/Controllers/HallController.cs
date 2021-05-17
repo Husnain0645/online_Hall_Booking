@@ -199,6 +199,8 @@ namespace online_Hall_Booking.Controllers
                         {
                             System.IO.File.Delete(TempData["logo"].ToString());
                         }
+                        hall.createdBy = _userManager.GetUserId(HttpContext.User);
+                        hall.updatedBy = _userManager.GetUserId(HttpContext.User);
                         _context.Update(hall);
                         await _context.SaveChangesAsync();
 
@@ -206,6 +208,8 @@ namespace online_Hall_Booking.Controllers
 
                     else
                     {
+                        hall.createdBy = _userManager.GetUserId(HttpContext.User);
+                        hall.updatedBy = _userManager.GetUserId(HttpContext.User);
                         hall.CoverImageUrl = TempData["cover"].ToString();
                         hall.logoFile = TempData["logo"].ToString();
                         _context.Update(hall);

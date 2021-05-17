@@ -121,6 +121,8 @@ namespace online_Hall_Booking.Controllers
             {
                 try
                 {
+                    hallPackages.createdBy = _userManager.GetUserId(HttpContext.User);
+                    hallPackages.updatedBy = _userManager.GetUserId(HttpContext.User);
                     _context.Update(hallPackages);
                     await _context.SaveChangesAsync();
                 }

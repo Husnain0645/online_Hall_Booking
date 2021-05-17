@@ -46,8 +46,16 @@ namespace online_Hall_Booking.Areas.Identity.Pages.Account
         public class InputModel
         {
 
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First Name")]
+            public string firstName { get; set; }
 
-            
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last Name")]
+            public string lastName { get; set; }
+
             [Required(ErrorMessage = "Email is required")]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -77,7 +85,7 @@ namespace online_Hall_Booking.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email, };
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email,  };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
