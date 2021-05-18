@@ -11,8 +11,8 @@
     <link href="~/style.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 </head>
 <body>
     <div style="margin-bottom:40px">
@@ -27,12 +27,10 @@
                     <li class="nav-item active">
                         <a class="nav-link" asp-action="Index" asp-controller="Product">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    @*<li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>*@
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-action="ContactUs" asp-controller="Home">ContactUs <span class="sr-only">(current)</span></a>
+                    </li>
+          
                 </ul>
                 <form class="form-inline my-2 my-lg-0" asp-action="Search" asp-controller="Product" method="get">
                     <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search" aria-label="Search">

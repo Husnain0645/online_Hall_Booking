@@ -34,5 +34,11 @@ namespace online_Hall_Booking.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [AllowAnonymous]
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
     }
 }

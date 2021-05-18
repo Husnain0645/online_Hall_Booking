@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,12 +27,13 @@ namespace online_Hall_Booking.Controllers
             _notyfService = notyfService;
 
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var hallList = _context.Halls.ToList();
             return View(hallList);
         }
-
+        [AllowAnonymous]
         public IActionResult Details(int? id)
         {
             if (id == null)
@@ -82,7 +84,7 @@ namespace online_Hall_Booking.Controllers
 
             return View(vm);
         }
-
+        [AllowAnonymous]
         public IActionResult Create(int? id)
         {
             var pakage = _context.packages.FirstOrDefault(p => p.pId == id);
