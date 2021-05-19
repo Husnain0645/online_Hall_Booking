@@ -39,6 +39,13 @@ namespace online_Hall_Booking.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public IActionResult Aboutus()
+        {
+            return View();
+        }
+
+        
 
     }
 }

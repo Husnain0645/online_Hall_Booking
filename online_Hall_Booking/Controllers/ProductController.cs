@@ -291,6 +291,7 @@ namespace online_Hall_Booking.Controllers
             return View();
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Search(string searchString)
         {
             var hallList = _context.Halls.ToList();
