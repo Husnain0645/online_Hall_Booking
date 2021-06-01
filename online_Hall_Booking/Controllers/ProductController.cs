@@ -170,6 +170,8 @@ namespace online_Hall_Booking.Controllers
             }
             TempData["appPkgId"] = hallAppointment.PId;
             TempData["appHallId"] = hallAppointment.HId;
+            var currentpackage = _context.packages.FirstOrDefault(h => h.pId == hallAppointment.PId);
+            hallAppointment.perheadCharges = currentpackage.charges;
 
 
             return View(hallAppointment);
