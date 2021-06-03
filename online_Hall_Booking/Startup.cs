@@ -53,8 +53,8 @@ namespace online_Hall_Booking
                 options.LoginPath = "/Identity/Account/Login";
             });
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
-
-    }
+            
+        }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

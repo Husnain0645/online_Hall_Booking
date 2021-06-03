@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace online_Hall_Booking.Controllers
 {
@@ -28,9 +29,11 @@ namespace online_Hall_Booking.Controllers
 
         }
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            var hallList = _context.Halls.ToList();
+            var pageNumber = page ?? 1;
+            int pageSize = 4;
+            var hallList = _context.Halls.ToPagedList(pageNumber, pageSize);
             return View(hallList);
         }
         [AllowAnonymous]
