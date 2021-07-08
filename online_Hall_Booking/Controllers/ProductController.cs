@@ -32,7 +32,7 @@ namespace online_Hall_Booking.Controllers
         public IActionResult Index(int? page)
         {
             var pageNumber = page ?? 1;
-            int pageSize = 4;
+            int pageSize = 8;
             var hallList = _context.Halls.ToPagedList(pageNumber, pageSize);
             return View(hallList);
         }
